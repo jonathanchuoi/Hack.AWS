@@ -1,14 +1,15 @@
-﻿namespace SNS.Infrastructure;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class StreamOptions
+namespace SNS.Infrastructure;
+
+public class BasicAwsCredentialOptions
 {
     public const string SectionName = "AwsStream";
-
-    // AWS region in which the stream is located
-    public string Region { get; set; }
-    public string AccountId { get; set; }
-    public string Environment { get; set; }
+    
+    [Required]
     public string AccessKeyId { get; set; }
+    [Required]
     public string SecretAccessKey { get; set; }
+    [Required]
     public string Url { get; set; }
 }

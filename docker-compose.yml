@@ -1,0 +1,33 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - SERVICES=sns
+    ports:
+      - '4566-4583:4566-4583'
+    volumes:
+      - "${TEMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  
+  snsproducer:
+    image: snsproducerapi
+    build:
+      context: .
+      dockerfile: SNS.Producer.api/Dockerfile
+    ports:
+      - 5052:5052
+  
+  sqsconsumerworker:
+    image: sqsconsumerworker
+    build:
+      context: .
+      dockerfile: SQS.Consumer.Worker/Dockerfile
+    ports:
+      - 5262:5262
+
