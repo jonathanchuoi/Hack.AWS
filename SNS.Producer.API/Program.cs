@@ -20,7 +20,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    Console.WriteLine("hi");
     app.UseSwagger();
     app.UseSwaggerUI();
 }

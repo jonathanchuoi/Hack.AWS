@@ -16,6 +16,8 @@ public class Worker : BackgroundService
         _sqs = sqs;
     }
 
+    const string QueueUrl = "http://localhost:4566/000000000000/APIQueue";
+
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
@@ -23,7 +25,7 @@ public class Worker : BackgroundService
             var messages = await _sqs.ReceiveMessageAsync(new ReceiveMessageRequest
             {
                 MaxNumberOfMessages = 1,
-                QueueUrl = "http://localhost:4566/000000000000/APIQueue",
+                QueueUrl = QueueUrl,
                 WaitTimeSeconds = 5 //long poll
             }, cancellationToken);
 
@@ -31,10 +33,10 @@ public class Worker : BackgroundService
             {
                 var body = JsonSerializer.Deserialize<SQSMessage>(message.Body);
                 Console.WriteLine(body!.Message);
+                var delete = await _sqs.DeleteMessageAsync(new DeleteMessageRequest(QueueUrl, message.ReceiptHandle),
+                    cancellationToken);
+                Console.WriteLine(delete.HttpStatusCode);
             }
-            
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            await Task.Delay(1000, cancellationToken);
         }
     }
 }
