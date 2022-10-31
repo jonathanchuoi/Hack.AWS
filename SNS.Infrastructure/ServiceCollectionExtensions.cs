@@ -1,4 +1,5 @@
-﻿using Amazon.SimpleNotificationService;
+﻿using Amazon.Runtime;
+using Amazon.SimpleNotificationService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,10 +9,19 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddAmaznoSNS(this IServiceCollection services, IConfiguration configuration)
     {
-        var options = configuration.GetAWSOptions();
-        services.AddDefaultAWSOptions(options);
-        services.AddAWSService<IAmazonSimpleNotificationService>();
+        services.Configure<BasicAwsCredentialOptions>(configuration.GetSection(BasicAwsCredentialOptions.SectionName));
+        var options = configuration.GetSection(BasicAwsCredentialOptions.SectionName)
+            .Get<BasicAwsCredentialOptions>();
 
+        var config = new AmazonSimpleNotificationServiceConfig
+        {
+            ServiceURL = options.ServiceUrl
+        };
+
+        var cred = new BasicAWSCredentials(options.AccessKeyId, options.SecretAccessKey);
+        var client = new AmazonSimpleNotificationServiceClient(cred, config);
+
+        services.AddSingleton<IAmazonSimpleNotificationService>(client);
         return services;
     }
 }

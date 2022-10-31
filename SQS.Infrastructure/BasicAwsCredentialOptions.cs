@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SNS.Infrastructure;
+namespace SQS.Infrastructure;
 
-public class BasicAwsCredentialOptions 
+public class BasicAwsCredentialOptions
 {
     public const string SectionName = "AWS";
 

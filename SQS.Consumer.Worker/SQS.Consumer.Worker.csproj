@@ -13,6 +13,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SQS.Infrastructure\SQS.Infrastructure.csproj" />
+        <ProjectReference Include="..\SQS.Infrastructure\SQS.Infrastructure.csproj" />
     </ItemGroup>
 </Project>

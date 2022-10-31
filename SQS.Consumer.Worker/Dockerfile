@@ -4,6 +4,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["SQS.Consumer.Worker/SQS.Consumer.Worker.csproj", "SQS.Consumer.Worker/"]
+COPY ["SQS.Infrastructure/SQS.Infrastructure.csproj", "SQS.Infrastructure/"]
 RUN dotnet restore "SQS.Consumer.Worker/SQS.Consumer.Worker.csproj"
 COPY . .
 WORKDIR "/src/SQS.Consumer.Worker"

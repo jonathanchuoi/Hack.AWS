@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace SNS.Producer.API.Controllers;
+namespace SQS.Infrastructure;
 
 public class SQSMessage
 {
-    [JsonPropertyName("Type")] 
+    [JsonPropertyName("Type")]
     public string Type { get; set; }
 
     [JsonPropertyName("MessageId")]
@@ -16,18 +16,18 @@ public class SQSMessage
     [JsonPropertyName("Message")]
     public string Message { get; set; }
 
-    [JsonPropertyName("Timestamp")] 
+    [JsonPropertyName("Timestamp")]
     public DateTime Timestamp { get; set; }
 
-    [JsonPropertyName("SignatureVersion")] 
+    [JsonPropertyName("SignatureVersion")]
     public string SignatureVersion { get; set; }
 
-    [JsonPropertyName("Signature")] 
+    [JsonPropertyName("Signature")]
     public string Signature { get; set; }
 
-    [JsonPropertyName("SigningCertURL")] 
+    [JsonPropertyName("SigningCertURL")]
     public string SigningCertURL { get; set; }
 
-    [JsonPropertyName("UnsubscribeURL")] 
+    [JsonPropertyName("UnsubscribeURL")]
     public string UnsubscribeURL { get; set; }
 }

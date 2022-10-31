@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
-using System.Security.Cryptography;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using Amazon.SQS;
@@ -38,13 +36,13 @@ using (var scope = app.Services.CreateScope())
     const string topicName = "Hi";
     var sns = scope.ServiceProvider.GetRequiredService<IAmazonSimpleNotificationService>();
     var request = new CreateTopicRequest(topicName);
-    
-     var topic = await sns.CreateTopicAsync(request);
 
-     var sqs = scope.ServiceProvider.GetRequiredService<IAmazonSQS>();
-     var queue = await sqs.CreateQueueAsync("APIQueue");
+    var topic = await sns.CreateTopicAsync(request);
 
-     await sns.SubscribeQueueAsync(topic.TopicArn, sqs, queue.QueueUrl);
+    var sqs = scope.ServiceProvider.GetRequiredService<IAmazonSQS>();
+    var queue = await sqs.CreateQueueAsync("APIQueue");
+
+    await sns.SubscribeQueueAsync(topic.TopicArn, sqs, queue.QueueUrl);
 }
 
 
