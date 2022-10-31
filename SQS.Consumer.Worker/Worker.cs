@@ -23,8 +23,9 @@ public class Worker : BackgroundService
             var messages = await _sqs.ReceiveMessageAsync(new ReceiveMessageRequest
             {
                 MaxNumberOfMessages = 1,
-                QueueUrl = "http://localhost:4566/000000000000/APIQueue"
-            });
+                QueueUrl = "http://localhost:4566/000000000000/APIQueue",
+                WaitTimeSeconds = 5 //long poll
+            }, cancellationToken);
 
             foreach (var message in messages.Messages)
             {
