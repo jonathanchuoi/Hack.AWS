@@ -24,6 +24,7 @@ public class Worker : BackgroundService
             });
             var a = response.QueueUrl;
 
+            //_sqs.
             _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
             await Task.Delay(1000, stoppingToken);
         }

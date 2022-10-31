@@ -4,7 +4,7 @@ namespace SNS.Infrastructure;
 
 public class BasicAwsCredentialOptions
 {
-    public const string SectionName = "AwsStream";
+    public const string SectionName = "AWS";
     
     [Required]
     public string AccessKeyId { get; set; }

@@ -8,7 +8,7 @@ services:
     environment:
       - AWS_DEFAULT_REGION=us-east-1
       - EDGE_PORT=4566
-      - SERVICES=sns
+      - SERVICES=sns,sqs
     ports:
       - '4566-4583:4566-4583'
     volumes:
